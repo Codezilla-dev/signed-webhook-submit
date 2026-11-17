@@ -1,0 +1,23 @@
+name: Submit application
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: POST signed submission
+        env:
+          B12_SIGNING_SECRET: ${{ secrets.B12_SIGNING_SECRET }}
+          APPLICANT_NAME: Fahad Ali
+          APPLICANT_EMAIL: fahad.ali.dev06@gmail.com
+          RESUME_LINK: https://drive.google.com/file/d/1cEhxucdYvQHyLeGvN81DkjuC_0_8YBlW/view
+        run: python submit.py
